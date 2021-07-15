@@ -4,7 +4,6 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -12,14 +11,11 @@ import android.util.Log
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
-import android.content.DialogInterface
-
-
+import android.speech.tts.TextToSpeech
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     private val REQUEST_RECORD_AUDIO_PERMISSION = 124
 
-
     private var recognizer : SpeechRecognizer? = null
     private var callBackUpdate = object : CallBackUpdate {
         override fun onUpdate(result: String) { updateText(result) }
@@ -38,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         override fun onFinished() { resetButton() }
     }
     private val listener = MyRecognitionListener(callBackUpdate,this)
+
+    private var textToSpeech : TextToSpeech? = null
+    private val utteranceId = this.hashCode().toString()+""
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +48,13 @@ class MainActivity : AppCompatActivity() {
         tts = findViewById(R.id.textToSpeech)
 
 
+        //Riconoscimento vocale
         stt.setOnClickListener{
-            //check for permission granted
+            //Permessi
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
                 requestRecordPermission()
             else {
+                //Controlla che il servizio sia disponibile al dispositivo
                 if(SpeechRecognizer.isRecognitionAvailable(applicationContext)) {
                     recognizer = SpeechRecognizer.createSpeechRecognizer(applicationContext)
                     stt.isEnabled = false
@@ -67,11 +69,19 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+        //Sintesi vocale
+        tts.setOnClickListener {
+            startTextSynthesis()
+            Log.d("tag", textField.text.toString())
+        }
     }
+
 
     override fun onPause() {
         super.onPause()
         recognizer?.destroy()
+        textToSpeech?.shutdown()
     }
 
     private fun requestRecordPermission(){
@@ -124,6 +134,19 @@ class MainActivity : AppCompatActivity() {
         recognizer!!.setRecognitionListener(listener)
         recognizer!!.startListening(intent)
 
+    }
+
+    private fun startTextSynthesis() {
+        val text = textField.text.toString()
+
+        textToSpeech = TextToSpeech(applicationContext) { status ->
+            if (status != TextToSpeech.ERROR) {
+                textToSpeech!!.language = Locale.ITALY
+                textToSpeech!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
+            } else {
+                showError(getString(R.string.synthesisErr))
+            }
+        }
     }
 
     private fun updateText(data :String){

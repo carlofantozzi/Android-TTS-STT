@@ -8,6 +8,7 @@
     <string name="testo_del_messaggio">Testo del messaggio</string>
     <string name="errore">Errore</string>
     <string name="des_err">Non è possibile iniziare il riconoscimento vocale.\nIl vostro dispositivo potrebbe non essere compatibile.</string>
+    <string name="synthesisErr">Si è verificato un errore. Riprova.</string>
 
     //Errori
     <string-array name="ListenerErrors">
