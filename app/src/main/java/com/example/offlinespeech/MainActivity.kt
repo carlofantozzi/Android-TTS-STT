@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
 import android.speech.tts.TextToSpeech
+import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,13 +52,17 @@ class MainActivity : AppCompatActivity() {
 
         //Riconoscimento vocale
         stt.setOnClickListener{
+            Log.d("tag","stt")
             //Permessi
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                Log.d("tag","permission")
                 requestRecordPermission()
+            }
             else {
                 //Controlla che il servizio sia disponibile al dispositivo
                 if(SpeechRecognizer.isRecognitionAvailable(applicationContext)) {
                     recognizer = SpeechRecognizer.createSpeechRecognizer(applicationContext)
+                    Log.d("tag","rec")
                     stt.isEnabled = false
                     startSpeechRecognition()
                 }
@@ -87,8 +92,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestRecordPermission(){
         if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)){
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_RECORD_AUDIO_PERMISSION)
+            Log.d("tag","should")
+            Toast.makeText(this, "Please grant permissions to record audio", Toast.LENGTH_LONG).show();
         }
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_RECORD_AUDIO_PERMISSION)
     }
 
     override fun onRequestPermissionsResult(
@@ -127,8 +134,12 @@ class MainActivity : AppCompatActivity() {
         )
 
         //Specifica l'utilizzo del riconoscitore offline ( valido solo per api >= 23)
-        if(Build.VERSION.SDK_INT >= 23)
-            intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
+        if(Build.VERSION.SDK_INT >= 23) {
+            Log.d("tag", "sdk23+")
+            //intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
+        }
+
+
 
         //abilitiamo i risultati parziali per avere una modalità "live" di riconoscimento
         intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
