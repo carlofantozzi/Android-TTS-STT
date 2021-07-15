@@ -1,17 +1,26 @@
 package com.example.offlinespeech
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.util.Log
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import java.util.*
+import android.content.DialogInterface
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,9 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     private var recognizer : SpeechRecognizer? = null
     private var callBackUpdate = object : CallBackUpdate {
-        override fun onUpdate(result: String) {
-            updateText(result)
-        }
+        override fun onUpdate(result: String) { updateText(result) }
+        override fun onError(error: String) { showError(error) }
+        override fun onFinished() { resetButton() }
     }
     private val listener = MyRecognitionListener(callBackUpdate)
 
@@ -46,9 +55,15 @@ class MainActivity : AppCompatActivity() {
             else {
                 if(SpeechRecognizer.isRecognitionAvailable(applicationContext)) {
                     recognizer = SpeechRecognizer.createSpeechRecognizer(applicationContext)
+                    stt.isEnabled = false
                     startSpeechRecognition()
                 }
-                //snackbar? alertdialog? servizio non disponibile per il dispositivo corrente
+                else {
+                    AlertDialog.Builder(this)
+                        .setTitle("Errore")
+                        .setMessage("Non è possibile iniziare il riconoscimento vocale.\nIl vostro dispositivo potrebbe non essere compatibile.")
+                        .show()
+                }
             }
 
         }
@@ -113,5 +128,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateText(data :String){
         textField.setText(data)
+    }
+
+    private fun showError(data :String){
+        val contextView :LinearLayout = findViewById(R.id.contextView)
+        Snackbar.make(contextView, data, Snackbar.LENGTH_LONG)
+            .show()
+    }
+
+    private fun resetButton(){
+        stt.isEnabled = true
     }
 }
