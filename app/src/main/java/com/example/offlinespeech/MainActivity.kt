@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
@@ -124,6 +125,10 @@ class MainActivity : AppCompatActivity() {
                 RecognizerIntent.EXTRA_LANGUAGE,
                 Locale.ITALY
         )
+
+        //Specifica l'utilizzo del riconoscitore offline ( valido solo per api >= 23)
+        if(Build.VERSION.SDK_INT >= 23)
+            intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
 
         //abilitiamo i risultati parziali per avere una modalità "live" di riconoscimento
         intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
