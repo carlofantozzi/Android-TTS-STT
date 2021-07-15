@@ -1,3 +1,27 @@
 <resources>
+    //Nome dellìapplicazione
     <string name="app_name">OfflineSpeech</string>
+
+
+    <string name="record">record</string>
+    <string name="listen">listen</string>
+    <string name="testo_del_messaggio">Testo del messaggio</string>
+    <string name="errore">Errore</string>
+    <string name="des_err">Non è possibile iniziare il riconoscimento vocale.\nIl vostro dispositivo potrebbe non essere compatibile.</string>
+
+    //Errori
+    <string-array name="ListenerErrors">
+        <item>Errore nell\'ascolto.</item>
+        <item>Errore lato cliente.</item>
+        <item>Permessi insufficienti.</item>
+        <item>Errore di rete.</item>
+        <item>Operazione di rete scaduta</item>
+        <item>Nessun risultato.</item>
+        <item>Servizio occupato.</item>
+        <item>Errore nel server.</item>
+        <item>Nessun input vocale.</item>
+        <item>Errore non riconosciuto.</item>
+    </string-array>
+
+
 </resources>

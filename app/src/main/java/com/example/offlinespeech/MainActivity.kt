@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         override fun onError(error: String) { showError(error) }
         override fun onFinished() { resetButton() }
     }
-    private val listener = MyRecognitionListener(callBackUpdate)
+    private val listener = MyRecognitionListener(callBackUpdate,this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +60,8 @@ class MainActivity : AppCompatActivity() {
                 }
                 else {
                     AlertDialog.Builder(this)
-                        .setTitle("Errore")
-                        .setMessage("Non è possibile iniziare il riconoscimento vocale.\nIl vostro dispositivo potrebbe non essere compatibile.")
+                        .setTitle(R.string.errore)
+                        .setMessage(R.string.des_err)
                         .show()
                 }
             }

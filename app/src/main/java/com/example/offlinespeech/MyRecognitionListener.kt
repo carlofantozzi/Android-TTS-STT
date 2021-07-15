@@ -4,30 +4,32 @@ import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
 import android.util.Log
+import android.content.Context
 
-class MyRecognitionListener(cbu: CallBackUpdate) : RecognitionListener {
+class MyRecognitionListener(cbu: CallBackUpdate, ctx: Context) : RecognitionListener {
 
     private var data = String()
-    private var callBackUpdate = cbu
+    private val callBackUpdate = cbu
+    private val context = ctx
 
 
     override fun onReadyForSpeech(params: Bundle) {
-        Log.d("tag", "ready")
+        Log.d("tag", "onReadyForSpeech")
         data = String()
     }
 
     override fun onBeginningOfSpeech() {
-        Log.d("tag", "beginning")
+        Log.d("tag", "onBeginningOfSpeech")
     }
 
     override fun onRmsChanged(rmsdB: Float) {}
 
     override fun onBufferReceived(buffer: ByteArray?) {
-        Log.d("tag", "buff")
+        Log.d("tag", "onBufferReceived")
     }
 
     override fun onEndOfSpeech() {
-        Log.d("tag", "endofs")
+        Log.d("tag", "onEndOfSpeech")
         callBackUpdate.onFinished()
     }
 
@@ -69,17 +71,18 @@ class MyRecognitionListener(cbu: CallBackUpdate) : RecognitionListener {
     }
 
     private fun errorToString(code: Int): String {
+        val error = context.resources.getStringArray(R.array.ListenerErrors)
         return when (code) {
-            SpeechRecognizer.ERROR_AUDIO -> "Errore nell'ascolto."
-            SpeechRecognizer.ERROR_CLIENT -> "Errore lato cliente."
-            SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "Permessi insufficienti."
-            SpeechRecognizer.ERROR_NETWORK -> "Errore di rete."
-            SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> "Operazione di rete scaduta"
-            SpeechRecognizer.ERROR_NO_MATCH -> "Nessun risultato."
-            SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> "Servizio occupato."
-            SpeechRecognizer.ERROR_SERVER -> "Errore nel server."
-            SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "Nessun input vocale."
-            else -> "Errore non riconosciuto."
+            SpeechRecognizer.ERROR_AUDIO -> error[0]
+            SpeechRecognizer.ERROR_CLIENT -> error[1]
+            SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> error[2]
+            SpeechRecognizer.ERROR_NETWORK -> error[3]
+            SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> error[4]
+            SpeechRecognizer.ERROR_NO_MATCH -> error[5]
+            SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> error[6]
+            SpeechRecognizer.ERROR_SERVER -> error[7]
+            SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> error[8]
+            else -> error[9]
         }
     }
 }

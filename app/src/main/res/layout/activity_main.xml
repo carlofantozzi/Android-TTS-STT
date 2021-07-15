@@ -14,7 +14,7 @@
         android:layout_height="0dp"
         android:layout_weight="0.7"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Il nostro testo">
+        android:hint="@string/testo_del_messaggio">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textField"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="50dp"
             android:src="@drawable/ic_baseline_mic_24"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/record" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/textToSpeech"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:src="@drawable/ic_baseline_volume_up_24"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/listen" />
 
     </LinearLayout>
 
