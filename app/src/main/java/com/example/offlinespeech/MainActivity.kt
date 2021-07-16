@@ -49,6 +49,8 @@ class MainActivity : AppCompatActivity() {
         stt = findViewById(R.id.speechToText)
         tts = findViewById(R.id.textToSpeech)
 
+        if(SpeechRecognizer.isRecognitionAvailable(applicationContext))
+            recognizer = SpeechRecognizer.createSpeechRecognizer(applicationContext)
 
         //Riconoscimento vocale
         stt.setOnClickListener{
@@ -60,8 +62,7 @@ class MainActivity : AppCompatActivity() {
             }
             else {
                 //Controlla che il servizio sia disponibile al dispositivo
-                if(SpeechRecognizer.isRecognitionAvailable(applicationContext)) {
-                    recognizer = SpeechRecognizer.createSpeechRecognizer(applicationContext)
+                if(recognizer != null){
                     Log.d("tag","rec")
                     stt.isEnabled = false
                     startSpeechRecognition()
@@ -155,12 +156,17 @@ class MainActivity : AppCompatActivity() {
     private fun startTextSynthesis() {
         val text = textField.text.toString()
 
-        textToSpeech = TextToSpeech(applicationContext) { status ->
-            if (status != TextToSpeech.ERROR) {
-                textToSpeech!!.language = Locale.ITALY
-                textToSpeech!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
-            } else {
-                showError(getString(R.string.synthesisErr))
+        if(textToSpeech?.isSpeaking == true){
+            showError(getString(R.string.occupato))
+        }
+        else {
+            textToSpeech = TextToSpeech(applicationContext) { status ->
+                if (status != TextToSpeech.ERROR) {
+                    textToSpeech!!.language = Locale.ITALY
+                    textToSpeech!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
+                } else {
+                    showError(getString(R.string.synthesisErr))
+                }
             }
         }
     }

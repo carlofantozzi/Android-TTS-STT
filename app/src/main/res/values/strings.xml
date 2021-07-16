@@ -9,6 +9,7 @@
     <string name="errore">Errore</string>
     <string name="des_err">Non è possibile iniziare il riconoscimento vocale.\nIl vostro dispositivo potrebbe non essere compatibile.</string>
     <string name="synthesisErr">Si è verificato un errore. Riprova.</string>
+    <string name="occupato">Il servizio è occupato. Aspetti la fine della riproduzione corrente.</string>
 
     //Errori
     <string-array name="ListenerErrors">
