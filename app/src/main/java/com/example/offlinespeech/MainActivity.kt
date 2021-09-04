@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
     private fun requestRecordPermission(){
         if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.RECORD_AUDIO)){
             Log.d("tag","should")
-            Toast.makeText(this, "Please grant permissions to record audio", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please grant permissions to record audio", Toast.LENGTH_LONG).show()
         }
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_RECORD_AUDIO_PERMISSION)
     }
@@ -122,7 +122,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
 
         //informa l'intent di usare un modello free-form e non web-based
-        //>>>devo effettuare il catch di ActivityNotFoundException.
         intent.putExtra(
                 RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
@@ -137,10 +136,8 @@ class MainActivity : AppCompatActivity() {
         //Specifica l'utilizzo del riconoscitore offline ( valido solo per api >= 23)
         if(Build.VERSION.SDK_INT >= 23) {
             Log.d("tag", "sdk23+")
-            //intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
+            intent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
         }
-
-
 
         //abilitiamo i risultati parziali per avere una modalità "live" di riconoscimento
         intent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
