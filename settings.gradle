@@ -1,2 +1,2 @@
+rootProject.name = "ThesisProject"
 include ':app'
-rootProject.name = "OfflineSpeech"

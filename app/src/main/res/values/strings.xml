@@ -1,8 +1,19 @@
 <resources>
-    //Nome dellìapplicazione
-    <string name="app_name">OfflineSpeech</string>
+    <string name="app_name">ThesisProject</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Riconoscimento e sintesi vocale</string>
+    <string name="nav_header_subtitle">Alessandra Pastore</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="preferences">com.example.thesisproject</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_exercise">Eserciziario</string>
+    <string name="menu_info">Info</string>
 
 
+    \\Generale
     <string name="record">record</string>
     <string name="listen">listen</string>
     <string name="testo_del_messaggio">Testo del messaggio</string>
@@ -25,5 +36,52 @@
         <item>Errore non riconosciuto.</item>
     </string-array>
 
+    //Domande eserciziario
+    <string name="tutorial">Dopo aver ascoltato la domanda, utilizzi il riconoscimento vocale per rispondere. Dica VA BENE per cominciare.</string>
+    <string-array name="exercises">
+        <item>Qual\'è la capitale d\'Italia?</item>
+        <item>Chi dipinse la MonaLisa?</item>
+        <item>Qual\'è il colore centrale della bandiera italiana?</item>
+        <item>Con quale ingrediente si fa l\'olio?</item>
+        <item>Cos\'hai sognato questa notte?</item>
+        <item>Con cosa corre un ciclista?</item>
+        <item>Quale mare bagna il Veneto?</item>
+        <item>Raccontami in breve la tua ultima vacanza</item>
+        <item>Quanto fa 6 x 7?</item>
+        <item>Qual\'è il pianeta con l\'anello?</item>
+        <item>Segno zodiacale di chi nasce ad Aprile</item>
+        <item>Bravo, hai terminato gli esercizi. Clicca convalida per tornare alla prima domanda</item>
+    </string-array>
 
+    //Risposte eserciziario
+    <string name="tut_ans">Va bene</string>
+    <string-array name="answers">
+        <item>Roma</item>
+        <item>Da Vinci</item>
+        <item>Bianco</item>
+        <item>Olive</item>
+        <item> </item>
+        <item>Bici</item>
+        <item>Adriatico</item>
+        <item> </item>
+        <item>42</item>
+        <item>Saturno</item>
+        <item>Ariete</item>
+        <item> </item>
+    </string-array>
+
+    //Convalida alertDialog
+    <string name="alertTitle">Va bene</string>
+    <string name="alertMex">Procediamo</string>
+    <string name="alertOk">Ok</string>
+
+    //Recap alertDialog
+    <string name="tornato">Ben tornato</string>
+    <string name="recap">Vuoi continuare da dove ci siamo lasciati?</string>
+    <string name="si">sì</string>
+    <string name="no">no</string>
+
+    //Negative alertDialog
+    <string name="neg_alertTitle">Riprova</string>
+    <string name="neg_alertMex">La risposta sembrerebbe non corretta</string>
 </resources>

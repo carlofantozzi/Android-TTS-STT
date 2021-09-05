@@ -1,4 +1,4 @@
-package com.example.offlinespeech
+package com.example.thesisproject
 
 interface CallBackUpdate {
 

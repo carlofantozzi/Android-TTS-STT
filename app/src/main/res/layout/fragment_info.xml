@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contextView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:weightSum="1.0"
+    android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+
+            android:padding="10dp"
+            android:src="@drawable/logo_unipd"
+            />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:padding="10dp"
+            android:src="@drawable/logo_dei"
+            />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:text="UNIVERSITA DEGLI STUDI DI PADOVA\nDIPARTIMENTO INGEGNERIA DELL'INFORMAZIONE\nCORSO LAUREA TRIENNALE IN INGEGNERIA INFORMATICA\n\nRICONOSCIMENTO E SINTESI VOCALE OFFLINE SULLA PIATTAFORMA ANDROID"
+        android:gravity="center_horizontal|center_vertical"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:text="RELATORE: Prof. Carlo Fantozzi\n\nLAUREANDA: Pastore Alessandra 1191000"
+        android:gravity="start|center_vertical"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:text="Anno Accademico 2020/2021"
+        android:gravity="center_horizontal|center_vertical"/>
+
+
+
+</LinearLayout>

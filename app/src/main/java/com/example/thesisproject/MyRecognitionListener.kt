@@ -1,12 +1,13 @@
-package com.example.offlinespeech
+package com.example.thesisproject
 
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.SpeechRecognizer
 import android.util.Log
 import android.content.Context
+import androidx.fragment.app.FragmentActivity
 
-class MyRecognitionListener(cbu: CallBackUpdate, ctx: Context) : RecognitionListener {
+class MyRecognitionListener(cbu: CallBackUpdate, ctx: FragmentActivity?) : RecognitionListener {
 
     private var data = String()
     private val callBackUpdate = cbu
@@ -46,10 +47,16 @@ class MyRecognitionListener(cbu: CallBackUpdate, ctx: Context) : RecognitionList
 
         //con onPartialResult l'ultima parola viene saltata (da testare meglio?)
         val stringResults = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
-        val size = stringResults?.size
+        //val size = stringResults?.size
 
-        data = size?.let { stringResults[it-1] } ?: ""
-        callBackUpdate.onUpdate(data)
+        //data = size?.let { stringResults[it-1] } ?: ""
+
+
+        if (stringResults != null) {
+            for( str in stringResults){
+                callBackUpdate.onUpdate(str)
+            }
+        }
 
     }
 
@@ -70,19 +77,19 @@ class MyRecognitionListener(cbu: CallBackUpdate, ctx: Context) : RecognitionList
         Log.d("tag", "onEvent")
     }
 
-    private fun errorToString(code: Int): String {
-        val error = context.resources.getStringArray(R.array.ListenerErrors)
+    private fun errorToString(code: Int): String? {
+        val error = context?.resources?.getStringArray(R.array.ListenerErrors)
         return when (code) {
-            SpeechRecognizer.ERROR_AUDIO -> error[0]
-            SpeechRecognizer.ERROR_CLIENT -> error[1]
-            SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> error[2]
-            SpeechRecognizer.ERROR_NETWORK -> error[3]
-            SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> error[4]
-            SpeechRecognizer.ERROR_NO_MATCH -> error[5]
-            SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> error[6]
-            SpeechRecognizer.ERROR_SERVER -> error[7]
-            SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> error[8]
-            else -> error[9]
+            SpeechRecognizer.ERROR_AUDIO -> error?.get(0)
+            SpeechRecognizer.ERROR_CLIENT -> error?.get(1)
+            SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> error?.get(2)
+            SpeechRecognizer.ERROR_NETWORK -> error?.get(3)
+            SpeechRecognizer.ERROR_NETWORK_TIMEOUT -> error?.get(4)
+            SpeechRecognizer.ERROR_NO_MATCH -> error?.get(5)
+            SpeechRecognizer.ERROR_RECOGNIZER_BUSY -> error?.get(6)
+            SpeechRecognizer.ERROR_SERVER -> error?.get(7)
+            SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> error?.get(8)
+            else -> error?.get(9)
         }
     }
 }
