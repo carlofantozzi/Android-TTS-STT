@@ -129,6 +129,7 @@ class ExerciseFragment : Fragment() {
 
         button.setOnClickListener {
             answer = textField.text.toString()
+            Log.d("exercise", exercise.toString())
             convalida = if(exercise == -1) resources.getString(R.string.tut_ans) else resources.getStringArray(R.array.answers)[exercise]
             if(answer.contains(convalida, true)){
                 AlertDialog.Builder(activity)
@@ -137,7 +138,8 @@ class ExerciseFragment : Fragment() {
                     .setPositiveButton(R.string.alertOk){
                         dialog, it ->
                         exercise = if(exercise+1>11) -1 else exercise+1
-                        textView.text = resources.getStringArray(R.array.exercises)[exercise]
+                        Log.d("exercise", exercise.toString())
+                        textView.text = if (exercise == -1) resources.getString(R.string.tutorial) else resources.getStringArray(R.array.exercises)[exercise]
                         textField.text?.clear()
                         listenQ()
                     }
