@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/contextView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,7 +28,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.3"
@@ -39,19 +40,40 @@
             android:id="@+id/speechToText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
+            android:layout_weight="0.5"
             android:src="@drawable/ic_baseline_mic_24"
-            android:contentDescription="TODO" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textToSpeech"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/textToSpeech"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_baseline_volume_up_24"
-            android:contentDescription="TODO" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/speechToText"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <SeekBar
+            android:id="@+id/speechRate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textToSpeech"
+            android:min="5"
+            android:max="20"
+            android:progress="10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textToSpeech" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

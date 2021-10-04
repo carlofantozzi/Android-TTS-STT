@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.example.thesisproject.ActionClass
 import com.example.thesisproject.CallBackUpdate
@@ -30,6 +31,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var stt : FloatingActionButton
     private lateinit var tts : FloatingActionButton
+    private lateinit var speechRate : SeekBar
     private lateinit var textField : TextInputEditText
     private lateinit var contextView : LinearLayout
 
@@ -65,6 +67,7 @@ class HomeFragment : Fragment() {
         textField = binding.textField
         stt = binding.speechToText
         tts = binding.textToSpeech
+        speechRate = binding.speechRate
         contextView = binding.contextView
 
         return root
@@ -121,6 +124,7 @@ class HomeFragment : Fragment() {
 
     private fun startTextSynthesis() {
         val text = textField.text.toString()
+        val rate = speechRate.progress.toFloat() / 10.0f
 
         if(textToSpeech?.isSpeaking == true){
             showError(getString(R.string.occupato))
@@ -129,6 +133,7 @@ class HomeFragment : Fragment() {
             textToSpeech = TextToSpeech(activity) { status ->
                 if (status != TextToSpeech.ERROR) {
                     textToSpeech!!.language = Locale.ITALY
+                    textToSpeech!!.setSpeechRate(rate)
                     textToSpeech!!.speak(text, TextToSpeech.QUEUE_FLUSH, null, utteranceId)
                 } else {
                     showError(getString(R.string.synthesisErr))
